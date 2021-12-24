@@ -7,8 +7,11 @@ app.use(corsOption);
 app.use(express.json());
 
 const port = process.env.PORT;
-console.log('port is', port);
+
+app.get("/hello",(req,res)=>{
+  return res.send("Hello Darling")
+})
 
 app.listen(port, () => {
-  console.log(`server is listening on port`);
+  console.log(`server is listening on ${port}`);
 });
