@@ -5,14 +5,14 @@ const connectDB = require('./config/connection');
 const swaggerJsdoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
 const swaggerOption = require('./config/swagger');
-const limiter = require('./config/limiter');
+// const limiter = require('./config/limiter');
 const { invalidAPI } = require('./cosntants/error.message');
 
 const port = process.env.PORT  || 5000;
 const app = express();
 app.use(corsOption);
 app.use(express.json());
-app.use(limiter);
+// app.use(limiter);
 connectDB();
 
 /* swagger configuration */
