@@ -1,4 +1,5 @@
 const CryptoJS = require('crypto-js');
+const jwt = require('jsonwebtoken');
 const User = require('../models/user.model');
 
 const {
@@ -23,10 +24,10 @@ exports.registerUser = async (req, res) => {
       message: userRegistered,
       user,
     });
-  } catch (err) {
+  } catch (error) {
     return res.status(400).json({
       message: userNotRegistered,
-      error: err,
+      error: error.message,
     });
   }
 };
@@ -34,15 +35,25 @@ exports.registerUser = async (req, res) => {
 exports.login = async (req, res) => {
   const { email, password } = req.body;
   try {
-    const user = await User.findOne({ email });
+    const user = await User.findOne(
+      { email },
+      { password: 1, isAdmin: 1 }
+    ).lean();
     if (user) {
       const bytes = CryptoJS.AES.decrypt(user.password, process.env.SECRET_KEY);
       const originalText = bytes.toString(CryptoJS.enc.Utf8);
-
+      const accessToken = jwt.sign(
+        {
+          id: user._id,
+          isAdmin: user.isAdmin,
+        },
+        process.env.SECRET_KEY,
+        { expiresIn: '1h' }
+      );
       if (originalText === password) {
         return res.status(200).json({
           message: loginSuccess,
-          user,
+          user: { ...user, accessToken },
         });
       }
       return res.status(404).json({
@@ -52,10 +63,32 @@ exports.login = async (req, res) => {
     return res.status(404).json({
       message: invalidUser,
     });
-  } catch (err) {
+  } catch (error) {
     return res.status(500).json({
       message: loginFailed,
-      error: err,
+      error: error.message,
     });
   }
 };
+
+// exports.getUser = (req, res) => {
+//   const { id } = req.params;
+//   const user = User.find({ id });
+
+//   return res.send({
+//     message: 'Heloo',
+//     user,
+//   });
+//   // if (user) {
+//   //   return res.send(user);
+//   // }
+// };
+
+/* 
+Delete
+Update 
+get 
+get all
+get user stats
+
+*/

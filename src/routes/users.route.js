@@ -1,5 +1,9 @@
 const router = require('express').Router();
-const { registerUser, login } = require('../controller/users.controller');
+const {
+  registerUser,
+  login,
+  getUser,
+} = require('../controller/users.controller');
 
 router.post('/register', registerUser);
 /**
@@ -45,5 +49,6 @@ router.post('/register', registerUser);
  *  */
 
 router.post('/login', login);
+// router.get('/user/:id', getUser);
 
 module.exports = router;
