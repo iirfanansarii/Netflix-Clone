@@ -1,6 +1,10 @@
 module.exports = {
   dbError: 'Database Error',
-  userRegister: 'User registered successfully',
-  userNotRegister: 'User not registered',
-  invalidAPI:"Invalid api endpoint"
+  userRegistered: 'User registered successfully',
+  userNotRegistered: 'User registeration failed',
+  invalidAPI: 'Invalid api endpoint',
+  loginSuccess: 'Logged in successfully',
+  loginFailed: 'Login Failed',
+  invalidPass: 'Invalid password',
+  invalidUser: 'Invalid user',
 };

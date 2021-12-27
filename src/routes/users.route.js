@@ -1,7 +1,7 @@
 const router = require('express').Router();
-const { registerUser } = require('../controller/users.controller');
+const { registerUser, login } = require('../controller/users.controller');
 
-router.post('/user/register', registerUser);
+router.post('/register', registerUser);
 /**
  * @swagger
  * /user/register:
@@ -9,7 +9,7 @@ router.post('/user/register', registerUser);
  *    summary: User registration
  *    description: Netflix user registarion
  *    tags:
- *      - Netflix User APIs 
+ *      - Netflix User APIs
  *    parameters:
  *      - in: body
  *        description: Netflix clone user registration
@@ -36,12 +36,14 @@ router.post('/user/register', registerUser);
  *              max: 15
  *              example: "Sophia#404"
  *    responses:
- *      200:
+ *      201:
  *        description: User registered successfully
  *      400:
  *        description: Bad request
  *      500:
  *        description: Internal server errror
  *  */
+
+router.post('/login', login);
 
 module.exports = router;
