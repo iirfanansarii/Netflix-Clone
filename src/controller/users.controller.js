@@ -9,6 +9,14 @@ const {
   invalidPass,
   invalidUser,
   loginFailed,
+  userNotUpdated,
+  unAuthorised,
+  userUpdated,
+  userDeleted,
+  canNotDeleted,
+  userFetched,
+  notAllowToSeeAllUsers,
+  userStatsFetched,
 } = require('../cosntants/error.message');
 
 exports.registerUser = async (req, res) => {
@@ -71,24 +79,134 @@ exports.login = async (req, res) => {
   }
 };
 
-// exports.getUser = (req, res) => {
-//   const { id } = req.params;
-//   const user = User.find({ id });
+exports.updateUser = async (req, res) => {
+  if (req.user.id === req.params.id || req.user.isAdmin) {
+    if (req.body.password) {
+      req.body.password = CryptoJS.AES.encrypt(
+        req.body.password,
+        process.env.SECRET_KEY
+      ).toString();
+    }
+    try {
+      const user = await User.findByIdAndUpdate(
+        { _id: req.params.id },
+        { $set: req.body }
+      );
+      return res.status(201).json({
+        message: userUpdated,
+        user,
+      });
+    } catch (err) {
+      return res.status(500).json({
+        error: err.message,
+      });
+    }
+  } else {
+    return res.status(403).json({
+      message: unAuthorised,
+    });
+  }
+};
 
-//   return res.send({
-//     message: 'Heloo',
-//     user,
-//   });
-//   // if (user) {
-//   //   return res.send(user);
-//   // }
-// };
+exports.deleteUser = async (req, res) => {
+  if (req.user.id === req.params.id || req.user.isAdmin) {
+    try {
+      await User.findByIdAndDelete(req.params.id);
+      return res.status(201).json({
+        message: userDeleted,
+      });
+    } catch (err) {
+      return res.status(500).json({
+        error: err.message,
+      });
+    }
+  } else {
+    return res.status(403).json({
+      message: canNotDeleted,
+    });
+  }
+};
 
-/* 
-Delete
-Update 
-get 
-get all
-get user stats
+exports.findUser = async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id, {
+      username: 1,
+      email: 1,
+      isAdmin: 1,
+      profilePic: 1,
+    }).lean();
+    return res.status(200).json({
+      message: userFetched,
+      user,
+    });
+  } catch (err) {
+    return res.status(500).json({
+      error: err.message,
+    });
+  }
+};
 
-*/
+exports.findAllUsers = async (req, res) => {
+  const query = req.query.new;
+  if (req.user.isAdmin) {
+    try {
+      const users = query
+        ? await User.find().sort({ _id: -1 }).limit(2)
+        : await User.find();
+      return res.status(200).json({
+        message: userFetched,
+        records: users.length,
+        users,
+      });
+    } catch (err) {
+      return res.status(500).json({
+        error: err.message,
+      });
+    }
+  } else {
+    return res.status(403).json({
+      message: notAllowToSeeAllUsers,
+    });
+  }
+};
+
+exports.userStats = async (req, res) => {
+  const today = new Date();
+  const lastYear = today.setFullYear(today.setFullYear() - 1);
+  const monthsArray = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ];
+
+  try {
+    const data = await User.aggregate([
+      {
+        $project: {
+          month: { $month: '$createdAt' },
+        },
+      },
+      {
+        $group: {
+          _id: '$month',
+          total: { $sum: 1 },
+        },
+      },
+    ]);
+    return res.status(200).json({
+      message: userStatsFetched,
+      stats: data,
+    });
+  } catch (err) {
+    return res.status(500).json(err.message);
+  }
+};

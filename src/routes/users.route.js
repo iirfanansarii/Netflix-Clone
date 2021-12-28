@@ -2,8 +2,13 @@ const router = require('express').Router();
 const {
   registerUser,
   login,
-  getUser,
+  updateUser,
+  deleteUser,
+  findUser,
+  findAllUsers,
+  userStats,
 } = require('../controller/users.controller');
+const authToken = require('../middlewares/authToken');
 
 router.post('/register', registerUser);
 /**
@@ -49,6 +54,10 @@ router.post('/register', registerUser);
  *  */
 
 router.post('/login', login);
-// router.get('/user/:id', getUser);
+router.put('/user/:id', authToken, updateUser);
+router.delete('/user/:id', authToken, deleteUser);
+router.get('/users', authToken, findAllUsers);
+router.get('/user/:id', findUser);
+router.get('/stats', authToken, userStats);
 
 module.exports = router;
