@@ -19,8 +19,8 @@ const App = () => {
           path={pagePath.defaultPath}
           element={user ? <Home /> : <Link to={pagePath.register} />}
         />
-        <Route path={pagePath.movies} element={<Home type='movies' />} />
-        <Route path={pagePath.series} element={<Home type='series' />} />
+        <Route path={pagePath.movies} element={<Home types='movies' />} />
+        <Route path={pagePath.series} element={<Home types='series' />} />
 
         <Route path={pagePath.register} element={<Register />} />
         <Route path={pagePath.login} element={<Login />} />
