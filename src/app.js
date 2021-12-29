@@ -20,11 +20,13 @@ const swaggerDocs = swaggerJsdoc(swaggerOption);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 /* routes */
-const userRouter = require('./routes/users.route');
+const userRoute = require('./routes/users.route');
 const movieRoute = require('./routes/movies.route');
+const listRoute = require('./routes/lists.route');
 
-app.use(userRouter);
+app.use(userRoute);
 app.use(movieRoute);
+app.use(listRoute);
 
 /* invalid api endpoint */
 app.use('/*', (req, res) => {

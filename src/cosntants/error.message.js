@@ -21,7 +21,13 @@ module.exports = {
   unAuthorisedToUpdateMovie: 'You are not authorised to update the movie',
   unAuthorisedToDeleteMovie: 'You are not authorised to delete the movie',
   movieDeleted: 'Movie has deleted successfully',
-  movieFound: 'Movie found successfully',
-  moviesFetched:'All movies fetched successfully',
-  notAuthToFecthMovies:'You are not authorised to get all movies'
+  randomMovieFound: 'Random Movie found successfully',
+  moviesFetched: 'All movies fetched successfully',
+  notAuthToFecthMovies: 'You are not authorised to get all movies',
+  notAuthToCreateMovie: 'Your are not authorise to create movie',
+  newListCreated: 'New list created successfully',
+  notAuthToCreateList: 'You are not authorised to create new list',
+  notAuthToDeleteList: 'You are not authorised to delete list',
+  listDeleted: 'List deleted successfully',
+  listFethed: 'Lists fetched successfully',
 };

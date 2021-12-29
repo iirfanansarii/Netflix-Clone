@@ -6,10 +6,12 @@ const {
   unAuthorisedToUpdateMovie,
   unAuthorisedToDeleteMovie,
   movieDeleted,
-  movieFound,
+  randomMovieFound,
   moviesFetched,
   notAuthToFecthMovies,
+  notAuthToCreateMovie,
 } = require('../cosntants/error.message');
+
 const { findOneAndUpdate } = require('../models/movie.model');
 
 exports.createNewMovie = async (req, res) => {
@@ -26,7 +28,7 @@ exports.createNewMovie = async (req, res) => {
     }
   } else {
     return res.status(403).json({
-      message: unAuthorised,
+      message: notAuthToCreateMovie,
     });
   }
 };
@@ -109,11 +111,11 @@ exports.getRandomMovie = async (req, res) => {
       ]);
     }
     return res.status(200).json({
-      message: movieFound,
+      message: randomMovieFound,
       movie,
     });
   } catch (err) {
-    return res.status(200).json(err.message);
+    return res.status(500).json(err.message);
   }
 };
 
