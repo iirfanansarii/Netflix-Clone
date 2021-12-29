@@ -30,4 +30,5 @@ module.exports = {
   notAuthToDeleteList: 'You are not authorised to delete list',
   listDeleted: 'List deleted successfully',
   listFethed: 'Lists fetched successfully',
+  movieFound: 'Movie fetched successfully',
 };

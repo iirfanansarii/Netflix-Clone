@@ -43,7 +43,7 @@ exports.deleteList = (req, res) => {
   }
 };
 
-exports.findLists = async (req, res) => {
+exports.randomLists = async (req, res) => {
   const typeQuery = req.query.type;
   const genreQuery = req.query.genre;
   let lists = [];

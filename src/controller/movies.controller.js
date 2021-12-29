@@ -10,6 +10,7 @@ const {
   moviesFetched,
   notAuthToFecthMovies,
   notAuthToCreateMovie,
+  movieFound,
 } = require('../cosntants/error.message');
 
 const { findOneAndUpdate } = require('../models/movie.model');

@@ -4,11 +4,11 @@ const authToken = require('../middlewares/authToken');
 const {
   createList,
   deleteList,
-  findLists,
+  randomLists,
 } = require('../controller/lists.controller');
 
 router.post('/lists', authToken, createList);
 router.delete('/list/:id', authToken, deleteList);
-router.get('/lists', findLists);
+router.get('/lists', randomLists);
 
 module.exports = router;
