@@ -5,12 +5,7 @@ import Register from './pages/register/Register';
 import Login from './pages/login/Login';
 import Watch from './pages/watch/Watch';
 
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Link,
-} from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import pagePath from './constants/pagepath';
 
 const App = () => {
@@ -22,9 +17,7 @@ const App = () => {
         <Route
           exact
           path={pagePath.defaultPath}
-          element={
-            user ? <Home /> : <Link  to={pagePath.register} />
-          }
+          element={user ? <Home /> : <Link to={pagePath.register} />}
         />
         <Route path={pagePath.movies} element={<Home type='movies' />} />
         <Route path={pagePath.series} element={<Home type='series' />} />
