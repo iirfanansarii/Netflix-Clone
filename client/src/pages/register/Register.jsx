@@ -18,11 +18,7 @@ const Register = () => {
     <div className="register">
       <div className="top">
         <div className="wrapper">
-<<<<<<< HEAD
         <img
-=======
-          <img
->>>>>>> 539c20c58391fdc8c68a0603ccffc94a81ff0b15
             className="logo"
             src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/2560px-Netflix_2015_logo.svg.png"
             alt=""
