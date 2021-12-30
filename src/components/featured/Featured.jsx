@@ -1,9 +1,25 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
 import './featured.scss';
+import httpService from '../../api/httpServices';
 
 const Featured = ({ type }) => {
+  const [content, setContent] = useState();
+
+  useEffect(() => {
+    httpService
+      .get('/random/movie', { params: { type: type } })
+      .then((res) => {
+        setContent(res.data.movie);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [type]);
+
+  console.log('content', content && content[0].img);
+
   return (
     <div className='featured'>
       {type && (
@@ -27,21 +43,10 @@ const Featured = ({ type }) => {
           </select>
         </div>
       )}
-      <img
-        src='https://images.pexels.com/photos/6899260/pexels-photo-6899260.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500'
-        alt=''
-      />
+      <img src={content && content[0].img} alt='' />
       <div className='info'>
-        <img
-          src='https://occ-0-1432-1433.1.nflxso.net/dnm/api/v6/LmEnxtiAuzezXBjYXPuDgfZ4zZQ/AAAABUZdeG1DrMstq-YKHZ-dA-cx2uQN_YbCYx7RABDk0y7F8ZK6nzgCz4bp5qJVgMizPbVpIvXrd4xMBQAuNe0xmuW2WjoeGMDn1cFO.webp?r=df1'
-          alt=''
-        />
-        <span className='desc'>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sunt, ipsa
-          itaque nostrum, eos molestias blanditiis dolores corporis id at cumque
-          natus, qui iusto libero incidunt et necessitatibus totam! Autem,
-          exercitationem!
-        </span>
+        <img src={content && content[0].img} alt='' />
+        <span className='desc'>{content && content[0].desc}</span>
         <div className='buttons'>
           <button className='play'>
             <PlayArrowIcon />

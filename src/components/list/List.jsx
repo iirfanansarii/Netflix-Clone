@@ -32,9 +32,10 @@ const List = ({ list }) => {
           style={{ display: !isMoved && 'none' }}
         />
         <div className='container' ref={listRef}>
-          {list.content.map((item, index) => (
-            <ListItem item={item} index={index} />
-          ))}
+          {list &&
+            list.content.map((item, index) => (
+              <ListItem key={index} item={item} index={index} />
+            ))}
         </div>
         <ArrowForwardIosIcon
           className='sliderArrow right'

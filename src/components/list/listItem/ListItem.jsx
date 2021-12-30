@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
+import httpService from '../../../api/httpServices';
+import { Link } from 'react-router-dom';
 import './listitem.scss';
+
 import {
   PlayArrow,
   Add,
   ThumbUpAltOutlined,
   ThumbDownOutlined,
 } from '@material-ui/icons';
-import httpService from '../../../api/httpServices';
-import { Link } from 'react-router-dom';
+
 const ListItem = ({ index, item }) => {
   const [isHovered, setIsHovered] = useState();
   const [movie, setMovie] = useState([]);
@@ -24,7 +26,7 @@ const ListItem = ({ index, item }) => {
   }, [item]);
 
   return (
-    <Link to={{ pathname: '/watch', movie: movie }}>
+    <Link to='/watch' state={{ movie: movie }}>
       <div
         className='listItem'
         onMouseEnter={() => setIsHovered(true)}

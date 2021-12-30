@@ -7,13 +7,12 @@ import httpService from '../../api/httpServices';
 
 const Home = ({ types }) => {
   const [lists, setLists] = useState([]);
-  const [type, setType] = useState('series');
   const [genre, setGenre] = useState('action');
 
   useEffect(() => {
     httpService
       .get('/lists', {
-        params: { type: type, genre: genre },
+        params: { type: types, genre: genre },
       })
       .then((res) => {
         setLists(res.data.lists);
@@ -21,16 +20,15 @@ const Home = ({ types }) => {
       .catch((error) => {
         console.log(error);
       });
-  }, []);
+  }, [types, genre]);
 
   return (
     <div className='home'>
       <Navbar />
       <Featured type={types} />
-      {lists && lists.map((list) => <List list={list} />)}
-      {lists && lists.map((list) => <List list={list} />)}
-      {lists && lists.map((list) => <List list={list} />)}
-      {lists && lists.map((list) => <List list={list} />)}
+      {lists && lists.map((list, index) => <List list={list} key={index} />)}
+      {lists && lists.map((list, index) => <List list={list} key={index} />)}
+      {lists && lists.map((list, index) => <List list={list} key={index} />)}
     </div>
   );
 };
