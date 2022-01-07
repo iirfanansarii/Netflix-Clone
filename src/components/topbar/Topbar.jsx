@@ -1,12 +1,31 @@
 import React from 'react';
 import './topbar.css';
+import { NotificationsNone, Language, Settings } from '@material-ui/icons';
 
 const Topbar = () => {
   return (
     <div className='topbar'>
       <div className='topbarWrapper'>
-        <div className='topLeft'>Left</div>
-        <div className='topRight'>Right</div>
+        <div className='topLeft'>
+          <span className='logo'>Netflix Admin</span>
+        </div>
+        <div className='topRight'>
+          <div className='topbarIconContainer'>
+            <NotificationsNone />
+            <span className='topIconBadge'>2</span>
+          </div>
+          <div className='topbarIconContainer'>
+            <Language />
+          </div>
+          <div className='topbarIconContainer'>
+            <Settings />
+          </div>
+          <img
+            src='https://avatars.githubusercontent.com/u/53628359?v=4'
+            alt='irfanimg'
+            className='topAvatar'
+          />
+        </div>
       </div>
     </div>
   );
