@@ -1,4 +1,6 @@
 import "./sidebar.css";
+import Link from "react-dom";
+
 import {
   LineStyle,
   Timeline,
@@ -22,7 +24,7 @@ const Sidebar = () => {
           <h3 className="sidebarTitle">Dashboard</h3>
           <ul className="sidebarList">
             <li className="sidebarListItem active">
-              <LineStyle className="sidebarIcon" /> Home
+              <LineStyle className="sidebarIcon" />Home
             </li>
             <li className="sidebarListItem">
               <Timeline className="sidebarIcon" /> Analytics
